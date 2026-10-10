@@ -10,12 +10,24 @@
     :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #111211; color: #e7e8e4; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
     * { box-sizing: border-box; }
     body { min-width: 320px; min-height: 100vh; margin: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(ellipse at 50% 42%, #c5d2af0d, transparent 48%), linear-gradient(145deg, #141613, #101110 65%); }
-    main { display: flex; flex-direction: column; align-items: center; gap: 1.35rem; padding: 2rem; text-align: center; }
+    main { display: flex; flex-direction: column; align-items: center; gap: 1.2rem; padding: 2rem; text-align: center; }
     .mark { display: grid; place-items: center; width: 58px; height: 58px; border: 1px solid #56634b; border-radius: 16px; color: #c5d2af; background: linear-gradient(145deg, #293022, #191b18); box-shadow: 0 18px 70px #c5d2af12; }
     h1 { margin: 0; font-size: clamp(2.8rem, 9vw, 5rem); font-weight: 600; line-height: 1; letter-spacing: -.075em; }
     p { margin: 0; color: #a0a992; font-size: .95rem; letter-spacing: .035em; }
-    .line { width: 46px; height: 1px; margin-top: .35rem; background: linear-gradient(90deg, transparent, #c5d2af, transparent); }
-    @media (prefers-reduced-motion: no-preference) { .mark { animation: arrive .8s cubic-bezier(.2,.8,.2,1) both; } h1 { animation: arrive .8s .08s cubic-bezier(.2,.8,.2,1) both; } p, .line { animation: arrive .8s .16s cubic-bezier(.2,.8,.2,1) both; } @keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } } }
+    .status { min-height: 1.25rem; color: #818878; font-size: .76rem; letter-spacing: .05em; }
+    .status strong { color: #c5d2af; font-weight: 500; }
+    .loader { position: relative; width: 42px; height: 42px; display: grid; place-items: center; }
+    .loader::before, .loader::after { content: ''; position: absolute; inset: 0; border: 1px solid #c5d2af30; border-radius: 50%; }
+    .loader::after { border-color: #c5d2af; border-right-color: transparent; border-bottom-color: transparent; }
+    .loader-dot { width: 5px; height: 5px; border-radius: 50%; background: #c5d2af; box-shadow: 0 0 12px #c5d2af80; }
+    .line { width: 46px; height: 1px; margin-top: .1rem; background: linear-gradient(90deg, transparent, #c5d2af, transparent); }
+    .open-link { display: inline-flex; align-items: center; gap: .55rem; min-height: 42px; margin-top: .25rem; padding: .65rem 1rem; border: 1px solid #647253; border-radius: 5px; background: linear-gradient(135deg, #c5d2af, #aebd96); color: #1a1f16; font-size: .8rem; font-weight: 600; text-decoration: none; transition: transform .2s, box-shadow .2s, background .2s; }
+    .open-link:hover { transform: translateY(-2px); box-shadow: 0 8px 28px #c5d2af26; background: linear-gradient(135deg, #d3dfbf, #bdcda7); }
+    .hint { max-width: 24rem; color: #737b6e; font-size: .72rem; line-height: 1.6; letter-spacing: 0; }
+    .open-link:focus-visible { outline: 2px solid #e7e8e4; outline-offset: 4px; }
+    .open-link svg { width: 14px; height: 14px; }
+    @media (prefers-reduced-motion: no-preference) { .mark { animation: arrive .8s cubic-bezier(.2,.8,.2,1) both; } h1 { animation: arrive .8s .08s cubic-bezier(.2,.8,.2,1) both; } p, .status, .line, .open-link { animation: arrive .8s .16s cubic-bezier(.2,.8,.2,1) both; } .loader::after { animation: spin 1.05s linear infinite; } .loader::before { animation: pulse 2s ease-in-out infinite; } @keyframes arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } } @keyframes spin { to { transform: rotate(360deg); } } @keyframes pulse { 0%,100% { transform: scale(.88); opacity: .45; } 50% { transform: scale(1.12); opacity: 1; } } }
+    @media (prefers-reduced-motion: reduce) { .open-link { transition: none; } }
   </style>
 </head>
 <body>
@@ -23,7 +35,13 @@
     <span class="mark" aria-hidden="true"><svg width="27" height="27" viewBox="0 0 32 32" fill="none"><path d="M5 23 13 8h5l-8 15H5Zm9 0 8-15h5l-8 15h-5Z" fill="currentColor"/><path d="m21 9 6-1-1 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     <h1 id="brand">KINETIC</h1>
     <p>Train with intention.</p>
+    <span class="loader" aria-hidden="true"><span class="loader-dot"></span></span>
+    <p class="status" role="status" aria-live="polite"><strong>KINETIC</strong> is your workout tracker for custom routines, set logging, goals, and progress.</p>
     <span class="line" aria-hidden="true"></span>
+    <a class="open-link" id="open-app" href="https://site-b2c1a53ecc6940c68e97b59b212d1900.freebuff.page/" aria-label="Open the KINETIC workout tracker in a new tab" target="_blank" rel="noopener noreferrer">
+      Open the tracker <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <p class="hint">This page is a lightweight welcome screen. The interactive workout tracker opens separately.</p>
   </main>
 </body>
 </html>
